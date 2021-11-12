@@ -89,7 +89,11 @@ class Kind(Openable):
         else:
             path = target['action__path'].replace('/./', '/')
 
-        bat_cmd = ['bat', '-n', path]
+        if "bat_cmd" in context:
+            bat_cmd = context['bat_cmd'] + [path]
+        else:
+            bat_cmd = ['bat', '-n', path]
+
         line = int(target.get('action__line', 0))
         if line:
             start_line = max(0, line - int(context['preview_height'] / 2))
